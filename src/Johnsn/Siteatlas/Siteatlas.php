@@ -28,4 +28,11 @@ class Siteatlas
     {
         return $this->sitemap;
     }
+
+    public function load($filename, $options = 0)
+    {
+        $result = @$this->sitemap->load($filename, $options);
+
+        return $result;
+    }
 }
