@@ -13,5 +13,19 @@ use \PHPUnit_Framework_TestCase;
 
 class SiteatlasTest extends PHPUnit_Framework_TestCase
 {
-    
+    public function testConstructorAndGetters()
+    {
+        $siteatlas = new Siteatlas();
+
+        $this->assertNotNull($siteatlas);
+    }
+
+    public function testGetSitemapReturnsDOMDocument()
+    {
+        $siteatlas = new Siteatlas();
+
+        $sitemap = $siteatlas->getSitemapDocument();
+
+        $this->assertInstanceOf("DOMDocument", $sitemap);
+    }
 }
