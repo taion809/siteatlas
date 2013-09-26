@@ -59,7 +59,6 @@ class Siteatlas
 
     public function save($filename, $format = true)
     {
-        $this->sitemap->preserveWhiteSpace = true;
         $this->sitemap->formatOutput = $format;
         $this->sitemap->C14N(true, true);
 
