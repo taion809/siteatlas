@@ -114,6 +114,27 @@ class SiteatlasTest extends PHPUnit_Framework_TestCase
         $this->assertFileExists($filename);
     }
 
+    public function testSaveDocumentFileIsSame()
+    {
+        $filename = vfsStream::url('mockDir').DIRECTORY_SEPARATOR."new_mockmap.xml";
+
+        $siteatlas = new Siteatlas();
+        $siteatlas->load(vfsStream::url('mockDir').DIRECTORY_SEPARATOR."mockmap.xml");
+
+        $siteatlas->addElement("http://www.google.com", date("Y-m-d"));
+        $siteatlas->save($filename);
+        $expected = $siteatlas->getSitemapDocument();
+
+        $siteatlas = null;
+
+        $siteatlas = new Siteatlas();
+        $siteatlas->load($filename);
+
+        $actual = $siteatlas->getSitemapDocument();
+
+        $this->assertEquals($expected, $actual);
+    }
+
     private function addValidSitemapData()
     {
         $xml  = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
