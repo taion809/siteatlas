@@ -51,7 +51,8 @@ class Siteatlas
         $url_element->appendChild($this->sitemap->createElement('changefreq', $frequency));
         $url_element->appendChild($this->sitemap->createElement('priority', $priority));
 
-        $this->sitemap->appendChild($url_element);
+        $urlset = $this->sitemap->getElementsByTagName('urlset')->item(0);
+        $urlset->appendChild($url_element);
 
         return $url_element;
     }
