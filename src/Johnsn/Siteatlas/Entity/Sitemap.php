@@ -57,7 +57,8 @@ class Sitemap implements SitemapEntityInterface
         $sitemap = new DOMDocument();
         $sitemap->C14N(true, false);
 
-        $result = $sitemap->loadXML($xml);
+        //I hate using @ but i can't catch or do anything with the errors.
+        $result = @$sitemap->loadXML($xml);
 
         if($result)
         {

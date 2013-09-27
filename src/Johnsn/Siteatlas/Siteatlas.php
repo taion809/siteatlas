@@ -11,6 +11,8 @@ namespace Johnsn\Siteatlas;
 
 class Siteatlas
 {
+    protected $sitemap = null;
+
     public function __construct()
     {
 
