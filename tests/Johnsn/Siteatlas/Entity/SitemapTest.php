@@ -56,6 +56,25 @@ class SitemapTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($result);
     }
 
+    public function testAddNode()
+    {
+        $sitemap = new Sitemap();
+        $result = $sitemap->addNode("http://www.example.com/", "2005-01-01", "monthly", "0.8");
+
+        $this->assertInstanceOf("DOMElement", $result);
+    }
+
+    public function testSaveXMLSavesAfterAddingNode()
+    {
+        $sitemap = new Sitemap();
+        $sitemap->addNode("http://www.example.com/", "2005-01-01", "monthly", "0.8");
+
+        $result = $sitemap->saveXML();
+        $expected = $this->getValidSitemapData();
+
+        $this->assertXmlStringEqualsXmlString($expected, $result);
+    }
+
     private function getBlankSitemap()
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';
@@ -68,7 +87,9 @@ class SitemapTest extends PHPUnit_Framework_TestCase
     private function getValidSitemapData()
     {
         $xml  = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" ';
+        $xml .= 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ';
+        $xml .= 'xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">' . "\n";
         $xml .= "\t" . '<url>' . "\n";
         $xml .= "\t\t" . '<loc>http://www.example.com/</loc>' . "\n";
         $xml .= "\t\t" . '<lastmod>2005-01-01</lastmod>' . "\n";

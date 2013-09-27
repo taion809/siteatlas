@@ -16,8 +16,15 @@ class Sitemap implements SitemapEntityInterface
 {
     protected $sitemap = null;
 
+    protected $version = "1.0";
+
+    protected $encoding = "UTF-8";
+
     public function __construct($version = "1.0", $encoding = "UTF-8")
     {
+        $this->version = $version;
+        $this->encoding = $encoding;
+
         $this->sitemap = new DOMDocument($version, $encoding);
 
         $urlset = $this->sitemap->createElementNS("http://www.sitemaps.org/schemas/sitemap/0.9", "urlset", '');
@@ -81,7 +88,7 @@ class Sitemap implements SitemapEntityInterface
     public function addNode($location, $date, $frequency = 'weekly', $priority = '0.5')
     {
         $url_element = $this->sitemap->createElement('url');
-        $url_element->appendChild($this->sitemap->createElement('loc', htmlentities($location)));
+        $url_element->appendChild($this->sitemap->createElement('loc', htmlentities($location, ENT_DISALLOWED, $this->encoding)));
         $url_element->appendChild($this->sitemap->createElement('lastmod', $date));
         $url_element->appendChild($this->sitemap->createElement('changefreq', $frequency));
         $url_element->appendChild($this->sitemap->createElement('priority', $priority));
