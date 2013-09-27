@@ -77,4 +77,18 @@ class Sitemap implements SitemapEntityInterface
         $xml = $this->sitemap->saveXML();
         return $xml;
     }
+
+    public function addNode($location, $date, $frequency = 'weekly', $priority = '0.5')
+    {
+        $url_element = $this->sitemap->createElement('url');
+        $url_element->appendChild($this->sitemap->createElement('loc', htmlentities($location)));
+        $url_element->appendChild($this->sitemap->createElement('lastmod', $date));
+        $url_element->appendChild($this->sitemap->createElement('changefreq', $frequency));
+        $url_element->appendChild($this->sitemap->createElement('priority', $priority));
+
+        $urlset = $this->sitemap->getElementsByTagName('urlset')->item(0);
+        $urlset->appendChild($url_element);
+
+        return $url_element;
+    }
 }

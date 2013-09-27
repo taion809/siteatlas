@@ -11,5 +11,9 @@ namespace Johnsn\Siteatlas\Contracts;
 
 interface SitemapEntityInterface
 {
-
+    public function load($filename);
+    public function loadXML($xml);
+    public function save($filename);
+    public function saveXML();
+    public function addNode($location, $date, $frequency, $priority);
 }
