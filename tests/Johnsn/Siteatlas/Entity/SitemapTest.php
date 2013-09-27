@@ -36,6 +36,13 @@ class SitemapTest extends PHPUnit_Framework_TestCase
         $this->assertNotEquals($document, $old_document);
     }
 
+    public function testSaveXMLString()
+    {
+        $sitemap = new Sitemap();
+
+        die(var_dump($sitemap->saveXML()));
+    }
+
     public function testLoadXmlString()
     {
         $xml = $this->getValidSitemapData();
